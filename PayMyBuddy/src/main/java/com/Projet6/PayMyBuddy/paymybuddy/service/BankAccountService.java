@@ -83,12 +83,12 @@ public class BankAccountService {
         return bankAccount;
     }
 
-    public List<BankAccount> getBankAccountByUserFirstNameAndLastName(String firstName, String lastName)
+    public List<BankAccount> getBankAccountByUserId(int userId)
     {
         List<BankAccount> listOfBankAccount = new ArrayList<>();
         try
         {
-            Iterable<BankAccount> bankAccountSearch = bankAccountRepository.findByUserFirstNameAndUserLastName(firstName, lastName);
+            Iterable<BankAccount> bankAccountSearch = bankAccountRepository.findByUserId(userId);
             for(BankAccount bankAccount : bankAccountSearch)
             {
                 listOfBankAccount.add(bankAccount);

@@ -5,16 +5,11 @@ import java.util.Date;
 
 public class TransactionDTO {
 
-
-
     private String description;
-
 
     private double amount;
 
-
     private int userSenderId;
-
 
     private int userReceiverId;
 

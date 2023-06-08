@@ -1,5 +1,7 @@
 package com.Projet6.PayMyBuddy.paymybuddy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.management.relation.Role;
@@ -17,18 +19,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(View.UserId.class)
     private int id;
 
     @Column(name = "email")
+    @JsonView(View.Email.class)
     private String email;
 
     @Column(name = "password")
+    @JsonView(View.Password.class)
     private String password;
 
     @Column(name = "firstName")
+    @JsonView(View.FirstName.class)
     private String firstName;
 
     @Column(name = "lastName")
+    @JsonView(View.LastName.class)
     private String lastName;
 
     @ManyToMany(
@@ -41,15 +48,10 @@ public class User {
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friends_id"))
+    @JsonIgnore
     private List<User> friends = new ArrayList<>();
 
 
-//    @OneToMany(
-//            mappedBy = "user",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<BankAccount> bankAccounts = new ArrayList<>();
 
     @ManyToMany(
             fetch = FetchType.LAZY,
@@ -61,18 +63,23 @@ public class User {
     @JoinTable(name = "transaction",
             joinColumns = @JoinColumn(name = "user_sender_id"),
             inverseJoinColumns = @JoinColumn(name = "user_receiver_id"))
+    @JsonIgnore
     private List<Transaction> transactionList = new ArrayList<>();
 
-//    @OneToMany(
-//            mappedBy = "user",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<Transaction> transactionList = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "user"
+    )
+    @JsonIgnore
+    List<TransactionBankaccount> transactionBankaccountList = new ArrayList<>();
+
+
 
 
     @Column(name = "balance")
+    @JsonView(View.Balance.class)
     private double balance;
+
+
 
 
 

@@ -16,6 +16,8 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Integ
     public Iterable<BankAccount> findAll();
     public Optional<BankAccount> findByIban(String iban);
 
+    public Iterable<BankAccount> findByUserId(int userId);
+
     Optional<BankAccount> findByUser(User user);
 
     Iterable<BankAccount> findByUserFirstNameAndUserLastName(String firstName, String lastName);

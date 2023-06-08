@@ -1,5 +1,6 @@
 package com.Projet6.PayMyBuddy.paymybuddy.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -19,18 +20,23 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(View.TransactionId.class)
     private int id;
 
     @Column(name = "datetransaction")
+    @JsonView(View.DateTransaction.class)
     private Date dateTransaction;
 
     @Column(name = "description")
+    @JsonView(View.Description.class)
     private String description;
 
     @Column(name = "amount")
+    @JsonView(View.Amount.class)
     private double amount;
 
     @Column(name = "fees")
+    @JsonView(View.Fees.class)
     private double fees;
 
     @ManyToOne(
@@ -40,6 +46,7 @@ public class Transaction {
             }
     )
     @JoinColumn(name="user_sender_id")
+    @JsonView(View.UserSender.class)
     private User userSender;
 
     @ManyToOne(
@@ -49,6 +56,7 @@ public class Transaction {
             }
     )
     @JoinColumn(name="user_receiver_id ")
+    @JsonView(View.UserReceiver.class)
     private User userReceiver;
 
 

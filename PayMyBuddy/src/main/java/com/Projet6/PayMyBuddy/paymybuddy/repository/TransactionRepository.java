@@ -19,6 +19,11 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
     public Iterable<Transaction> findByUserSenderFirstNameAndUserSenderLastName(String firstName, String lastName);
 
+    public Iterable<Transaction> findByUserSenderId(int userSenderId);
+
+    public Iterable<Transaction> findByUserReceiverId(int userReceiverId);
+
     public Iterable<Transaction> findByUserReceiverFirstNameAndUserReceiverLastName(String firstName, String lastName);
+
 
 }

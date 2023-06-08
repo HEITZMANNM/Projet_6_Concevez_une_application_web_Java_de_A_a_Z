@@ -16,6 +16,10 @@ import org.apache.logging.log4j.Logger;
 @Service
 public class UserService {
 
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Autowired
     private UserRepository userRepository;
 
@@ -53,7 +57,6 @@ public class UserService {
             logger.error("Error fetching user", ex);
         }
         return user;
-
     }
     public User getUserByEmail(String email)
     {
@@ -68,6 +71,26 @@ public class UserService {
             logger.error("Error fetching user", ex);
         }
         return user;
+    }
+
+    public List<User> getUsersFriends(String email)
+    {
+        User user = new User();
+        List<User> listOfFriends = new ArrayList<>();
+        try
+        {
+            Optional<User> userSearch = userRepository.findByEmail(email);
+            user= userSearch.get();
+            logger.debug("The user was find");
+
+            listOfFriends= user.getFriends();
+
+            logger.debug("The list of user's friends was find");
+        }
+        catch(Exception ex){
+            logger.error("Error fetching user", ex);
+        }
+        return listOfFriends;
     }
 
 
@@ -91,13 +114,6 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-//    public void deleteUserByFirstNameAndLastName(String firstName, String lastName)
-//    {
-//        Optional<User> optionalUser = userRepository.findByFirstNameAndLastName(firstName, lastName);
-//        User userToDelete = optionalUser.get();
-//
-//        userRepository.deleteById(userToDelete.getId());
-//    }
 
     public void deleteUserByFirstNameAndLastName(String firstName, String lastName)
     {
@@ -127,15 +143,23 @@ public class UserService {
         return answer;
     }
 
-    public void addNewFriend(int userId, int friendId)
+    public boolean addNewFriend(int userId, String friendEmail)
     {
-        User user = this.getUserById(userId);
-        List<User> firends = user.getFriends();
-        User friend = this.getUserById(friendId);
+        boolean answer = false;
+        try{
+            User user = this.getUserById(userId);
+            List<User> firends = user.getFriends();
+            User friend = this.getUserByEmail(friendEmail);
+            firends.add(friend);
 
-        firends.add(friend);
+            this.updateUser(user);
+            answer = true;
+        }
+        catch (Exception ex){
+            logger.error("Error to save new friend", ex);
+        }
+        return answer;
 
-        this.updateUser(user);
     }
 
     public void deleteAFriend(int userId, int friendId)
@@ -147,6 +171,23 @@ public class UserService {
         firends.remove(friend);
 
         this.updateUser(user);
+    }
+
+    public User getUserByEmailAndPassword(String email, String password)
+    {
+        User user = null;
+        try
+        {
+            Optional<User> userSearch = userRepository.findByEmailAndPassword(email, password);
+            user= userSearch.get();
+
+            logger.debug("The user was find");
+        }
+        catch(Exception ex){
+            logger.error("Error fetching user", ex);
+        }
+
+        return user;
     }
 }
 

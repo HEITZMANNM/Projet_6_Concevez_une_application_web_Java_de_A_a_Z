@@ -43,5 +43,26 @@ public class TransactionDTOService {
         return transaction;
     }
 
+    public TransactionDTO convertTransactionToTransactionDTO (Transaction transaction)
+    {
+
+        TransactionDTO transactionDTO = new TransactionDTO();
+
+        try {
+
+            transactionDTO.setDescription(transaction.getDescription());
+            transactionDTO.setAmount(transaction.getAmount());
+            transactionDTO.setUserReceiverId(transaction.getUserReceiver().getId());
+            transactionDTO.setUserSenderId(transaction.getUserSender().getId());
+
+        }
+        catch (Exception ex)
+        {
+            logger.error("Error convert TransactionDTO to Transaction", ex);
+        }
+
+        return transactionDTO;
+    }
+
 
 }

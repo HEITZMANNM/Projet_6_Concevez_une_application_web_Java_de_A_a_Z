@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,48 +22,20 @@ public class BankAccountController {
     @Autowired
     public UserService userService;
 
-    @GetMapping("/bankaccounts")
-    public List<BankAccount> getALlBankAccount() throws IOException
-    {
-        return bankAccountService.getBankAccounts();
-    }
 
-    @GetMapping("/bankaccountById")
-    public BankAccount getBankAccountById(@RequestParam(name = "id") int id)
-    {
-        return bankAccountService.getBankAccountById(id);
-    }
 
-    @GetMapping("/bankaccountByIban")
-    public BankAccount getBankAccountByIban(@RequestParam(name = "iban") String iban)
-    {
-        return bankAccountService.getBankAccountByIban(iban);
-    }
-
-//    @GetMapping("/bankaccountByUser")
-//    public BankAccount getBankAccountByUser(@RequestBody User user)
-//    {
-//        return bankAccountService.getBankAccountByUser(user);
-//    }
 
     @GetMapping("/bankaccountByUserInfo")
-    public List<BankAccount> getBankAccountByUserFirstNameAndLastName(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "lastName") String lastName)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public List<BankAccount> getBankAccountByUserId(@RequestParam(name = "userId") int userId)
     {
-        return bankAccountService.getBankAccountByUserFirstNameAndLastName(firstName, lastName);
+            return bankAccountService.getBankAccountByUserId(userId);
+
     }
 
 
-//    @PostMapping("/bankaccount")
-//    public ResponseEntity<HttpStatus> postNewBankAccount(@RequestBody BankAccount bankAccount)
-//    {
-//        if(bankAccountService.saveBankAccount(bankAccount))
-//        {
-//            return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
-//        }
-//        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
-//    }
-
     @PostMapping("/bankaccount")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<HttpStatus> postNewBankAccount(@RequestParam(name = "userId") int userId, @RequestBody BankAccount bankAccount)
     {
         User user = userService.getUserById(userId);
@@ -76,6 +49,7 @@ public class BankAccountController {
     }
 
     @DeleteMapping("/bankaccount")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void deleteBankAccount(@RequestParam(name = "iban") String iban)
     {
         bankAccountService.deleteByIban(iban);

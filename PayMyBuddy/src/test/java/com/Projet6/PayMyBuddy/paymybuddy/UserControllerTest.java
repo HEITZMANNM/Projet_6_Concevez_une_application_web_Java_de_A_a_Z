@@ -81,9 +81,8 @@ public class UserControllerTest {
         friends.add(userTestFriend);
         userTest.setFriends(friends);
 
-
-        userService.saveUser(userTest);
         userService.saveUser(userTestFriend);
+        userService.saveUser(userTest);
         userService.saveUser(newFriendForUserTest);
     }
 

@@ -135,5 +135,4 @@ public class BankAccountServiceIT {
         bankAccountService.deleteByIban("bankaccountToUpDate");
 
     }
-
 }

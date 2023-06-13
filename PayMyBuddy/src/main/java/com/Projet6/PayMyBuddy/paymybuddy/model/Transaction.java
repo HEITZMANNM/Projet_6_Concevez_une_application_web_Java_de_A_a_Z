@@ -4,17 +4,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @DynamicUpdate
 @Table(name = "transaction")
 public class Transaction {
-
-
 
 
     @Id
@@ -40,25 +36,16 @@ public class Transaction {
     private double fees;
 
     @ManyToOne(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
     )
     @JoinColumn(name="user_sender_id")
     @JsonView(View.UserSender.class)
     private User userSender;
 
     @ManyToOne(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
     )
     @JoinColumn(name="user_receiver_id ")
     @JsonView(View.UserReceiver.class)
     private User userReceiver;
-
 
 
     public int getId() {

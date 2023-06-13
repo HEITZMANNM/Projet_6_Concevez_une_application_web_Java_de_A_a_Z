@@ -2,7 +2,6 @@ package com.Projet6.PayMyBuddy.paymybuddy.repository;
 
 import com.Projet6.PayMyBuddy.paymybuddy.model.BankAccount;
 
-import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,10 +16,6 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Integ
     public Optional<BankAccount> findByIban(String iban);
 
     public Iterable<BankAccount> findByUserId(int userId);
-
-    Optional<BankAccount> findByUser(User user);
-
-    Iterable<BankAccount> findByUserFirstNameAndUserLastName(String firstName, String lastName);
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteByIban(String iban);

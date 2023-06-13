@@ -30,7 +30,7 @@ public class TransactionBankaccount {
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="bankaccount_id")
     @JsonView(View.TransactionBankaccountBankAccount.class)
     private BankAccount bankaccount;
@@ -38,9 +38,6 @@ public class TransactionBankaccount {
     @Column(name = "date")
     @JsonView(View.TransactionBankaccountDate.class)
     private Date date;
-
-
-
 
     @Column(name = "origin")
     @JsonView(View.TransactionBankaccountOrigin.class)

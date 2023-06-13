@@ -1,5 +1,7 @@
 package com.Projet6.PayMyBuddy.paymybuddy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -28,18 +30,21 @@ public class BankAccount {
     private String bic;
 
     @ManyToOne(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name="user_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
-    @OneToMany(
+
+    @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "bankaccount"
     )
-    List<TransactionBankaccount> transactionBankaccountList = new ArrayList<>();
+    @JsonIgnore
+    private List<TransactionBankaccount> transactionBankaccountList = new ArrayList<>();
+
+    @Column(name= "status")
+    private  String status;
 
     public int getId() {
         return id;
@@ -73,6 +78,20 @@ public class BankAccount {
         this.bic = bic;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<TransactionBankaccount> getTransactionBankaccountList() {
+        return transactionBankaccountList;
+    }
+
+    public void setTransactionBankaccountList(List<TransactionBankaccount> transactionBankaccountList) {
+        this.transactionBankaccountList = transactionBankaccountList;
+    }
 
 }

@@ -1,7 +1,5 @@
 package com.Projet6.PayMyBuddy.paymybuddy.model;
 
-import javax.persistence.*;
-import java.util.Date;
 
 public class TransactionDTO {
 

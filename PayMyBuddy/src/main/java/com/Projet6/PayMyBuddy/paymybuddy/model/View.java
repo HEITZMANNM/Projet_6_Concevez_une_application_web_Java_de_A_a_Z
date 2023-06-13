@@ -13,8 +13,6 @@ public class View {
     public interface LastName{};
 
 
-
-
     public interface Balance{};
 
 

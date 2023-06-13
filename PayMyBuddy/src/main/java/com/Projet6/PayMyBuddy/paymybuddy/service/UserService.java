@@ -3,8 +3,7 @@ package com.Projet6.PayMyBuddy.paymybuddy.service;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,10 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 @Service
 public class UserService {
-
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Autowired
     private UserRepository userRepository;
@@ -165,10 +160,10 @@ public class UserService {
     public void deleteAFriend(int userId, int friendId)
     {
         User user = this.getUserById(userId);
-        List<User> firends = user.getFriends();
+        List<User> friends = user.getFriends();
         User friend = this.getUserById(friendId);
 
-        firends.remove(friend);
+        friends.remove(friend);
 
         this.updateUser(user);
     }

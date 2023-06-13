@@ -1,10 +1,6 @@
 package com.Projet6.PayMyBuddy.paymybuddy.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.Date;
+
 
 public class TransactionBankaccountDTO {
 
@@ -23,7 +19,6 @@ public class TransactionBankaccountDTO {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-
 
 
     public BankAccount getBankaccount() {
@@ -48,11 +43,7 @@ public class TransactionBankaccountDTO {
 
     private double amount;
 
-
     private BankAccount bankaccount;
-
-
-
 
     private boolean origin;
 }

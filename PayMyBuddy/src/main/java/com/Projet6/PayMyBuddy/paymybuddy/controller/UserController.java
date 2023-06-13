@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,7 +24,6 @@ public class UserController {
     {
         return userService.getUserByEmail(email);
     }
-
 
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -59,40 +57,21 @@ public class UserController {
         return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/user")
-    public void deleteUser(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "lastName") String lastName)
-    {
-        userService.deleteUserByFirstNameAndLastName(firstName, lastName);
-    }
-
     @DeleteMapping("/friend")
     @CrossOrigin(origins = "http://localhost:4200")
     public void deleteFriend(@RequestParam(name = "userId") int userId, @RequestParam(name = "friendId") int friendId)
     {
         userService.deleteAFriend(userId, friendId);
     }
-    @PutMapping("/user")
-    @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<HttpStatus>  putUser(@RequestBody User user)
-    {
-        if(userService.updateUser(user))
-        {
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-        }
-
-        return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
-    }
 
     @GetMapping("/newFriend")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<HttpStatus> postNewFriend(@RequestParam(name = "userId") int userId, @RequestParam(name = "friendEmail") String friendEmail )
     {
-
         if(userService.addNewFriend(userId, friendEmail))
         {
             return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
         }
         return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
     }
-
 }

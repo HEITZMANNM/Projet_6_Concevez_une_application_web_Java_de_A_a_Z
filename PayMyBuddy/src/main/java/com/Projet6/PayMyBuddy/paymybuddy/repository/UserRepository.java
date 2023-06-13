@@ -23,21 +23,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     public Optional<User> findByEmailAndPassword(String email, String password);
 
-    public Optional<User> findByFirstName(String firstName);
-
-   public Optional<User> findByLastName(String lastName);
-
-    public Optional<User> findByFirstNameAndLastName(String firstName, String lastName);
-
-    public void deleteById(int id);
-
-
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    @Modifying
-//    @Query(value = "DELETE FROM user WHERE first_name =:firstname AND last_name=:lastname", nativeQuery = true)
-//    public void deleteByFirstNameAndLastName(@Param("firstname") String firstName, @Param("lastname") String lastName);
-
-
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteByFirstNameAndLastName(String firstName, String lastName);
 

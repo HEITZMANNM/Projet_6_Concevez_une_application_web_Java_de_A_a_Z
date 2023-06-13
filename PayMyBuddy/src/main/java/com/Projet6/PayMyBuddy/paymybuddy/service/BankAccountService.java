@@ -1,9 +1,10 @@
 package com.Projet6.PayMyBuddy.paymybuddy.service;
 
 import com.Projet6.PayMyBuddy.paymybuddy.model.BankAccount;
-import com.Projet6.PayMyBuddy.paymybuddy.model.User;
+import com.Projet6.PayMyBuddy.paymybuddy.model.TransactionBankaccount;
+
 import com.Projet6.PayMyBuddy.paymybuddy.repository.BankAccountRepository;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,36 +24,7 @@ public class BankAccountService {
     @Autowired
     BankAccountRepository bankAccountRepository;
 
-    public List<BankAccount> getBankAccounts() {
-        List<BankAccount> bankAccounts = new ArrayList<>();
-        try {
-            Iterable<BankAccount> iterableBankAccounts = bankAccountRepository.findAll();
-            for(BankAccount bankAccount : iterableBankAccounts)
-            {
-                bankAccounts.add(bankAccount);
-            }
-            logger.debug("All Bank Account were found");
-        } catch (Exception ex) {
-            logger.error("Error fetching the list of Bank account", ex);
-        }
-        return bankAccounts;
-    }
 
-    public BankAccount getBankAccountById(int id)
-    {
-        BankAccount bankAccount = new BankAccount();
-        try
-        {
-            Optional<BankAccount> bankAccountSearch = bankAccountRepository.findById(id);
-            bankAccount= bankAccountSearch.get();
-            logger.debug("The bank account was find");
-        }
-        catch(Exception ex){
-            logger.error("Error fetching bank account", ex);
-        }
-        return bankAccount;
-
-    }
     public BankAccount getBankAccountByIban(String iban)
     {
         BankAccount bankAccount = new BankAccount();
@@ -68,20 +40,6 @@ public class BankAccountService {
         return bankAccount;
     }
 
-    public BankAccount getBankAccountByUser(User user)
-    {
-        BankAccount bankAccount = new BankAccount();
-        try
-        {
-            Optional<BankAccount> bankAccountSearch = bankAccountRepository.findByUser(user);
-            bankAccount= bankAccountSearch.get();
-            logger.debug("The bank account was find");
-        }
-        catch(Exception ex){
-            logger.error("Error fetching bank account", ex);
-        }
-        return bankAccount;
-    }
 
     public List<BankAccount> getBankAccountByUserId(int userId)
     {
@@ -91,7 +49,9 @@ public class BankAccountService {
             Iterable<BankAccount> bankAccountSearch = bankAccountRepository.findByUserId(userId);
             for(BankAccount bankAccount : bankAccountSearch)
             {
-                listOfBankAccount.add(bankAccount);
+                if(bankAccount.getStatus().equals("actif")) {
+                    listOfBankAccount.add(bankAccount);
+                }
             }
 
             logger.debug("The bank account was find");
@@ -105,14 +65,22 @@ public class BankAccountService {
     public boolean saveBankAccount(BankAccount bankAccount)
     {
         boolean answer = false;
-        try
-        {
-            bankAccountRepository.save(bankAccount);
-            answer = true;
-            logger.debug("the bank account was saved");
+        String ibanNewBankaccount =  bankAccount.getIban();
+        BankAccount existingBankaccount = this.getBankAccountByIban(bankAccount.getIban());
+        if(existingBankaccount.getId() == 0) {
+            try {
+                bankAccountRepository.save(bankAccount);
+                answer = true;
+                logger.debug("the bank account was saved");
+            } catch (Exception ex) {
+                logger.error("Error save bank account", ex);
+            }
         }
-        catch(Exception ex){
-            logger.error("Error save bank account", ex);
+        else{
+            existingBankaccount.setStatus("actif");
+            this.upDateBankAccount(existingBankaccount, existingBankaccount.getId());
+            logger.debug("the bank account was update to actif");
+            answer = true;
         }
         return answer;
     }
@@ -124,7 +92,18 @@ public class BankAccountService {
 
     public void deleteByIban(String iban)
     {
-        bankAccountRepository.deleteByIban(iban);
+        BankAccount bankaccountToDelete = bankAccountRepository.findByIban(iban).get();
+        List<TransactionBankaccount> listOfTransactionsWithBankaccount = bankaccountToDelete.getTransactionBankaccountList();
+        if(listOfTransactionsWithBankaccount.isEmpty())
+        {
+            bankAccountRepository.deleteByIban(iban);
+            logger.debug("the bank account was delete");
+        }
+        else {
+            bankaccountToDelete.setStatus("non actif");
+            this.upDateBankAccount(bankaccountToDelete, bankaccountToDelete.getId());
+            logger.debug("the bank account was desactivated");
+        }
     }
 
     public boolean upDateBankAccount(BankAccount bankAccount, int id)
@@ -136,6 +115,7 @@ public class BankAccountService {
         {
             existingBankAccount.setIban(bankAccount.getIban());
             existingBankAccount.setBic(bankAccount.getBic());
+            existingBankAccount.setStatus(bankAccount.getStatus());
 
             bankAccountRepository.save(existingBankAccount);
             answer = true;
@@ -146,4 +126,5 @@ public class BankAccountService {
         }
         return answer;
     }
+
 }

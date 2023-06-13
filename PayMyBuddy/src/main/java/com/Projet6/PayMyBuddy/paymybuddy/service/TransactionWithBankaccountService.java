@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,25 +22,6 @@ public class TransactionWithBankaccountService {
     private UserService userService;
 
     private static final Logger logger = LogManager.getLogger("TransactionWithBankaccountService");
-
-
-    public List<TransactionBankaccount> getTransactions()
-    {
-        List<TransactionBankaccount> listOfAllTransactions = new ArrayList<>();
-        try {
-            Iterable<TransactionBankaccount> transactions = transactionWithBankAccountRepository.findAll();
-
-            for (TransactionBankaccount transaction : transactions) {
-                listOfAllTransactions.add(transaction);
-                logger.debug("The transactions were find");
-            }
-        }
-        catch(Exception ex){
-            logger.error("Error fetching the list of transactions", ex);
-        }
-        return listOfAllTransactions;
-    }
-
 
 
     public List<TransactionBankaccount> getTransactionsWithBankByUserId(int userId)
@@ -119,6 +101,13 @@ public class TransactionWithBankaccountService {
         transactionBankaccount.setOrigin(origin);
 
         return transactionBankaccount;
+    }
 
+    //methode for controller test only
+    public void deleteTransactionWithBankaccountByUserId(int userId)
+    {
+        List<TransactionBankaccount> listOfTransactionBankaccountByUserId = this.getTransactionsWithBankByUserId(userId);
+
+        listOfTransactionBankaccountByUserId.removeAll(listOfTransactionBankaccountByUserId);
     }
 }

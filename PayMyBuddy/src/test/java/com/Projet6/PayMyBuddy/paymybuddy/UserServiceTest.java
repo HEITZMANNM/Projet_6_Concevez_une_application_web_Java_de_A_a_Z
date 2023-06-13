@@ -27,13 +27,15 @@ public class UserServiceTest {
 
 
     @Mock(lenient = true)
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @InjectMocks
-    UserService userService = new UserService();
+    private UserService userService = new UserService();
 
     private User userOne;
     private User userTwo;
+
+    private User userThree;
 
 
 
@@ -76,6 +78,12 @@ public class UserServiceTest {
         userTwo.setBalance(500);
         userTwo.setId(2);
 
+        userThree = new User();
+        userThree.setEmail("Michel@gmail.mm");
+        userThree.setPassword("MM");
+        userThree.setBalance(500);
+        userThree.setId(3);
+
         List<User>friends = new ArrayList<>();
         friends.add(userTwo);
         userOne.setFriends(friends);
@@ -85,6 +93,9 @@ public class UserServiceTest {
         when(userRepository.findById(1)).thenReturn(Optional.of(userOne));
         when(userRepository.findByEmail("Wolf@gmail.ge")).thenReturn(Optional.of(userTwo));
         when(userRepository.findByEmail("Dutton@gmail.ye")).thenReturn(Optional.ofNullable(userOne));
+        when(userRepository.findByEmail("Michel@gmail.mm")).thenReturn(Optional.ofNullable(userThree));
+        when(userRepository.findById(1)).thenReturn(Optional.ofNullable(userOne));
+        when(userRepository.findById(2)).thenReturn(Optional.ofNullable(userTwo));
 
     }
 
@@ -99,16 +110,27 @@ public class UserServiceTest {
         assertEquals(listOfAllUser.get(0).getEmail(), "Dutton@gmail.ye");
     }
 
-//test to add new friend
+    //test to add new friend
     @Test
     public void testToAddNewFriend()
     {
         setUpFriends();
-        userService.addNewFriend(1, "Wolf@gmail.ge");
+        userService.addNewFriend(1, "Michel@gmail.mm");
 
-        assertEquals(userOne.getFriends().get(0).getPassword(), "WW");
+        assertEquals(userOne.getFriends().get(1).getPassword(), "MM");
     }
 
+    //test to delete a friend
+    @Test
+    public void testToDeleteAFriend()
+    {
+        setUpFriends();
+        userService.deleteAFriend(userOne.getId(), userTwo.getId());
+
+        assertEquals(userOne.getFriends().size(), 0);
+    }
+
+    //test to find a user by id
     @Test
     public void testFindUserById()
     {
@@ -118,6 +140,7 @@ public class UserServiceTest {
         assertEquals(userOne.getEmail(), "Dutton@gmail.ye");
     }
 
+    //test to find a user by email
     @Test
     public void testFindUserByEmail()
     {
@@ -127,11 +150,12 @@ public class UserServiceTest {
         assertEquals(userOne.getPassword(), "DD");
     }
 
+    //test to get all friends for a user
     @Test
     public void testToGetUserFriends()
     {
         setUpFriends();
-       List<User> listOfFirendsFind =  userService.getUsersFriends("Dutton@gmail.ye");
+        List<User> listOfFirendsFind =  userService.getUsersFriends("Dutton@gmail.ye");
 
         assertEquals(listOfFirendsFind.size(), 1);
         assertEquals(listOfFirendsFind.get(0).getEmail(), "Wolf@gmail.ge");

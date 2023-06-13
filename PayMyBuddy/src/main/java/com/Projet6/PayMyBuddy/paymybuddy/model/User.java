@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.management.relation.Role;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import java.util.List;
 @DynamicUpdate
 @Table(name = "user")
 public class User {
-
 
 
     @Id
@@ -39,11 +38,7 @@ public class User {
     private String lastName;
 
     @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.ALL,
-                    CascadeType.MERGE
-            }
+            fetch = FetchType.EAGER
     )
     @JoinTable(name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -52,13 +47,8 @@ public class User {
     private List<User> friends = new ArrayList<>();
 
 
-
     @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.ALL,
-                    CascadeType.MERGE
-            }
+            fetch = FetchType.LAZY
     )
     @JoinTable(name = "transaction",
             joinColumns = @JoinColumn(name = "user_sender_id"),
@@ -73,16 +63,9 @@ public class User {
     List<TransactionBankaccount> transactionBankaccountList = new ArrayList<>();
 
 
-
-
     @Column(name = "balance")
     @JsonView(View.Balance.class)
     private double balance;
-
-
-
-
-
 
 
 
@@ -125,14 +108,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public void setBankAccounts(List<BankAccount> bankAccounts) {
-//        this.bankAccounts = bankAccounts;
-//    }
-//
-//    public List<BankAccount> getBankAccounts() {
-//        return bankAccounts;
-//    }
 
     public String getFirstName() {
         return firstName;

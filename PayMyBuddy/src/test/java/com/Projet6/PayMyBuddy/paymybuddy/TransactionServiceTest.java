@@ -3,9 +3,7 @@ package com.Projet6.PayMyBuddy.paymybuddy;
 import com.Projet6.PayMyBuddy.paymybuddy.model.Transaction;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import com.Projet6.PayMyBuddy.paymybuddy.repository.TransactionRepository;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
 import com.Projet6.PayMyBuddy.paymybuddy.service.TransactionService;
-import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -81,7 +79,7 @@ public class TransactionServiceTest {
         assertEquals(listOfExpectedTransaction.get(0).getDescription(), "test");
     }
 
-
+//test to format a double
     @Test
     public void testToConvertADoubleToADoubleWithOnlyTwoDecimals()
     {

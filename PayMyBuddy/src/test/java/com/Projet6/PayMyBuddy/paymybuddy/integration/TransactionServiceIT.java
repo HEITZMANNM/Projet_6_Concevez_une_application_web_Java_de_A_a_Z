@@ -2,8 +2,7 @@ package com.Projet6.PayMyBuddy.paymybuddy.integration;
 
 import com.Projet6.PayMyBuddy.paymybuddy.model.Transaction;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.TransactionRepository;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
+
 import com.Projet6.PayMyBuddy.paymybuddy.service.TransactionService;
 import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import org.junit.jupiter.api.AfterEach;
@@ -17,9 +16,6 @@ import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 public class TransactionServiceIT {
-
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Autowired
     private TransactionService transactionService;

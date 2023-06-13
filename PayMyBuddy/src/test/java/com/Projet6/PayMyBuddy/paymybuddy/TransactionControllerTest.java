@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +51,6 @@ public class TransactionControllerTest {
         userSender.setLastName("userSenderControllerTest");
         userSender.setPassword("userSenderTest");
         userSender.setBalance(100);
-
 
         userReceiver = new User();
         userReceiver.setEmail("userReceiver@gmail.ts");
@@ -93,6 +91,7 @@ public class TransactionControllerTest {
 
     }
 
+    //test to get transaction by its user id
     @Test
     public void testToGetTransactionByUserId() throws Exception {
         int userId = userService.getUserByEmailAndPassword(userSender.getEmail(), userSender.getPassword()).getId();
@@ -101,6 +100,7 @@ public class TransactionControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].description").value("test transaction"));
     }
 
+    //test to save a new transaction
     @Test
     public void testToSaveANewTransaction() throws Exception {
         TransactionDTO transaction = new TransactionDTO();

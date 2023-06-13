@@ -3,7 +3,6 @@ package com.Projet6.PayMyBuddy.paymybuddy.integration;
 import com.Projet6.PayMyBuddy.paymybuddy.model.BankAccount;
 import com.Projet6.PayMyBuddy.paymybuddy.model.TransactionBankaccount;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.BankAccountRepository;
 import com.Projet6.PayMyBuddy.paymybuddy.service.BankAccountService;
 import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import org.junit.jupiter.api.*;
@@ -18,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 public class BankAccountServiceIT {
-
-    @Autowired
-    private BankAccountRepository bankAccountRepository;
 
     @Autowired
     private BankAccountService bankAccountService;
@@ -72,6 +68,8 @@ public class BankAccountServiceIT {
         userService.deleteUserByFirstNameAndLastName(userForUpDate.getFirstName(), userForUpDate.getLastName());
     }
 
+
+    //test to save a new bankaccount in the DB
     @Test
     public void testToSavedABankAccount()
     {
@@ -85,6 +83,7 @@ public class BankAccountServiceIT {
 
     }
 
+    //test to delete a user in the data base
     @Test
     public void testToDeleteBankAccount()
     {
@@ -112,6 +111,7 @@ public class BankAccountServiceIT {
         assertNull(bankAccountSearch.getIban());
     }
 
+    //test to update a user in the data base
     @Test
     public void testToUpDateBankAccount()
     {
@@ -134,9 +134,6 @@ public class BankAccountServiceIT {
 
         bankAccountService.deleteByIban("bankaccountToUpDate");
 
-
-
     }
-
 
 }

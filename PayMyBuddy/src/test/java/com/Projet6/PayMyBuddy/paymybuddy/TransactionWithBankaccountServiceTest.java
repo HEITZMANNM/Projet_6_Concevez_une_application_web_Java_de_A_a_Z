@@ -5,10 +5,7 @@ import com.Projet6.PayMyBuddy.paymybuddy.model.TransactionBankaccount;
 import com.Projet6.PayMyBuddy.paymybuddy.model.TransactionBankaccountDTO;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import com.Projet6.PayMyBuddy.paymybuddy.repository.TransactionWithBankAccountRepository;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
 import com.Projet6.PayMyBuddy.paymybuddy.service.TransactionWithBankaccountService;
-import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;

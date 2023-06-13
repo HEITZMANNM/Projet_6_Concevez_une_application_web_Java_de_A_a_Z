@@ -11,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -52,6 +49,7 @@ public class TransactionDTOServiceTest {
         when(userService.getUserById(2)).thenReturn(userTwo);
     }
 
+    //test to convert a TransactionDTO to a transaction
     @Test
     public void testToConvertTransactionDTOToTransaction()
     {

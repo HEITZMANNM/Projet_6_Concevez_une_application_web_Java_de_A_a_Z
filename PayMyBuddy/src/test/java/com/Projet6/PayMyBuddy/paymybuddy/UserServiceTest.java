@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 
@@ -160,7 +157,4 @@ public class UserServiceTest {
         assertEquals(listOfFirendsFind.size(), 1);
         assertEquals(listOfFirendsFind.get(0).getEmail(), "Wolf@gmail.ge");
     }
-
-
-
 }

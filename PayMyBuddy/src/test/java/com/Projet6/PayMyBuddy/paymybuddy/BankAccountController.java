@@ -3,7 +3,6 @@ package com.Projet6.PayMyBuddy.paymybuddy;
 import com.Projet6.PayMyBuddy.paymybuddy.model.BankAccount;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import com.Projet6.PayMyBuddy.paymybuddy.service.BankAccountService;
-import com.Projet6.PayMyBuddy.paymybuddy.service.TransactionService;
 import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import javax.persistence.Table;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -65,6 +63,7 @@ public class BankAccountController {
         userService.deleteUserByFirstNameAndLastName(userTest.getFirstName(), userTest.getLastName());
     }
 
+    //test to get all user's bankaccounts, by its id
     @Test
     public void testToGetAllBankAccountByUserId() throws Exception {
         int userId = userService.getUserByEmailAndPassword(userTest.getEmail(), userTest.getPassword()).getId();
@@ -73,6 +72,7 @@ public class BankAccountController {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].iban").value("FRtest"));
     }
 
+    //test to save a new bankaccount
     @Test
     public void testToSaveANewBankAccount() throws Exception {
         BankAccount newBankaccount = new BankAccount();

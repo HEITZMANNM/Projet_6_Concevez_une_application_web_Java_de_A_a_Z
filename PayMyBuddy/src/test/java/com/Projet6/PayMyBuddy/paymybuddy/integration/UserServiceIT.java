@@ -1,32 +1,24 @@
 package com.Projet6.PayMyBuddy.paymybuddy.integration;
 
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
+
 import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-//@ExtendWith(SpringExtension.class)
+
 @SpringBootTest
 public class UserServiceIT {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -43,9 +35,6 @@ public class UserServiceIT {
         newUser.setFirstName("Bernard");
         newUser.setLastName("Dupont");
 
-//        userService = new UserService();
-
-//        userService.setUserRepository(userRepository);
     }
 
     @AfterEach
@@ -54,10 +43,11 @@ public class UserServiceIT {
         userService.deleteUserByFirstNameAndLastName(newUser.getFirstName(), newUser.getLastName());
     }
 
+    //test to save a new user in the data base
     @Test
     public void testToSaveANewUser()
     {
-//saved the new user (method tested)
+        //saved the new user (method tested)
         userService.saveUser(newUser);
 
         //get the user in the database
@@ -69,6 +59,7 @@ public class UserServiceIT {
 
     }
 
+    //test to delete a user in the data base
     @Test
     public void testToDeleteAUserById()
     {
@@ -91,6 +82,7 @@ public class UserServiceIT {
 
     }
 
+    //test to update a user in the data base
     @Test
     public void testToUpdateAUser()
     {
@@ -104,9 +96,9 @@ public class UserServiceIT {
         userService.updateUser(newUser);
 
         //get the newUser updated
-       User newUserUpdated = userService.getUserByEmail("newuser@gmail.user");
+        User newUserUpdated = userService.getUserByEmail("newuser@gmail.user");
 
-       //assert that the newUser's balance was correctly updated
+        //assert that the newUser's balance was correctly updated
         assertEquals(newUserUpdated.getBalance(), 300);
 
     }

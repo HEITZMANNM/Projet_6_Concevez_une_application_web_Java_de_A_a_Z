@@ -1,26 +1,24 @@
 package com.Projet6.PayMyBuddy.paymybuddy;
 
-import com.Projet6.PayMyBuddy.paymybuddy.controller.UserController;
+
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
+
 import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +44,7 @@ public class UserControllerTest {
 
     @Autowired
     private UserService userService;
-//
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @InjectMocks
-//    private UserController userController;
+
 
 
     @BeforeEach
@@ -151,7 +144,7 @@ public class UserControllerTest {
         int id = userTest.getId();
         int idFriend = userTestFriend.getId();
         this.mockMvc.perform(delete("/friend").param("userId", String.valueOf(id))
-                                                        .param("friendId", String.valueOf(idFriend)) )
+                        .param("friendId", String.valueOf(idFriend)) )
                 .andExpect(status().isOk());
     }
 
@@ -163,7 +156,7 @@ public class UserControllerTest {
 
         mockMvc.perform( MockMvcRequestBuilders
                         .get("/newFriend").param("userId", String.valueOf(id))
-                                                    .param("friendEmail", newFriendEmail)
+                        .param("friendEmail", newFriendEmail)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());

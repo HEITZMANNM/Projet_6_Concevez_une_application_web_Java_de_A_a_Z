@@ -3,9 +3,7 @@ package com.Projet6.PayMyBuddy.paymybuddy;
 import com.Projet6.PayMyBuddy.paymybuddy.model.BankAccount;
 import com.Projet6.PayMyBuddy.paymybuddy.model.User;
 import com.Projet6.PayMyBuddy.paymybuddy.repository.BankAccountRepository;
-import com.Projet6.PayMyBuddy.paymybuddy.repository.UserRepository;
 import com.Projet6.PayMyBuddy.paymybuddy.service.BankAccountService;
-import com.Projet6.PayMyBuddy.paymybuddy.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,12 +47,11 @@ public class BankAccountServiceTest {
         List<BankAccount> listOfBankAccountForUserTested = new ArrayList<>();
         listOfBankAccountForUserTested.add(bankAccount);
 
-
-
         when(bankAccountRepository.findByIban(bankAccount.getIban())).thenReturn(Optional.of(bankAccount));
         when(bankAccountRepository.findByUserId(anyInt())).thenReturn(listOfBankAccountForUserTested);
     }
 
+    //test to get a bankaccount by its iban
     @Test
     public void testToGetBankAccountByIban()
     {
@@ -63,6 +60,7 @@ public class BankAccountServiceTest {
         assertEquals(bankAccountExpected.getBic(), "00");
     }
 
+    //test to get a bankaccount by its user's id
     @Test
     public void testToGetBankAccountByUserId()
     {
@@ -70,6 +68,4 @@ public class BankAccountServiceTest {
 
         assertEquals(listBankAccountExpected.get(0).getBic(), "00");
     }
-
-
 }

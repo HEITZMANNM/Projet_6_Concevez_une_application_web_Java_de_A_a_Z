@@ -1,0 +1,43 @@
+<app-menu></app-menu>
+<div class="container">
+    <table class="responsive-table highlight">
+        <thead>
+          <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Reason</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let transaction of transactionList">
+            <td>{{transaction.userSender.firstName}}</td>
+            <td> {{transaction.userReceiver.firstName}} </td>
+            <td>  {{transaction.amount}} </td>
+            <td>  {{transaction.dateTransaction| date: 'shortDate'}} </td>
+            <td>  {{transaction.description}} </td>
+          </tr>
+          <tr *ngFor="let transaction of transactionWithBankList">
+            <td>Me</td>
+            <td> {{transaction.bankaccount.iban}} </td>
+            <td>
+              <div *ngIf="transaction.origin; then subtraction; else addition"></div>   
+              <ng-template #subtraction>- {{transaction.amount}} </ng-template>
+              <ng-template #addition>{{transaction.amount}}</ng-template>
+            </td>
+            <td>  {{transaction.date| date: 'shortDate'}} </td>
+            <td>  {{transaction.description}} </td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+      <div class="card-panel">
+        <button class="btn waves-effect waves-orange" routerLink="newTransfer"> Transfer to a third party </button>
+    </div>
+    <div class="card-panel">
+      <button class="btn waves-effect waves-orange" routerLink="transactionBankAccount"> Transfer with my bank </button>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+
+<div class="container">
+    <table class="responsive-table">
+        <thead>
+            <tr>
+                <th> Bank Account </th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let bankaccount of listOfBankAccount">
+            <td class="waves-effect waves-orange collection-item " (click)="inputValueToBankAccountSelected(bankaccount)"> {{bankaccount.iban}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>    
+
+<div class="container">
+    <div class="card-panel">
+        <div class="input-field col s12">
+            <input disabled value=" {{ibanSelected}} " id="disabled" type="text" class="validate">
+            <label for="disabled">Bank Account selected :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="amount" type="text" [(ngModel)]="amount">
+            <label >Amount :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="description" type="text" [(ngModel)]="description">
+            <label >Reason :</label>
+          </div>
+          <div class="switch">
+            <label >Origin :</label>
+            <label>
+              From
+              <input type="checkbox" [(ngModel)]="origin">
+              <span class="lever"></span>
+              To
+            </label>
+          </div>
+        
+        <button class="btn waves-effect waves-orange" (click)="send()"> Go !</button>
+    </div>
+
+</div>

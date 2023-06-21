@@ -1,0 +1,57 @@
+<app-menu></app-menu>
+
+
+
+
+
+
+
+<div class="container">
+<table class="responsive-table">
+  <thead>
+  <tr>
+      <th> Firstname</th>
+      <th> Lastname</th>
+      <th>  </th>
+  </tr>
+  </thead>
+  
+  <tbody>
+      <tr *ngFor="let u of listOfFriends">
+          <td> {{u.firstName }} </td>
+          <td> {{u.lastName }} </td>
+          <td><button (click)=deleteFriend(u) > Delete </button></td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<div class="divider"></div>
+<div class="row">
+  <div class="col s12">
+     <input type="text" style="width: 200px;" id="friendEmail" placeholder=" Email ami" [(ngModel)]="inputValue"/>
+    <button class="btn-small waves-effect waves-orange center" (click)="addFriend()"> 
+     Add my Buddy !
+   </button>
+
+  </div>
+</div>
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+ 

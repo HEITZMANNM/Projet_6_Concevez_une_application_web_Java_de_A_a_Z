@@ -1,0 +1,18 @@
+button.add{
+position: absolute;
+bottom: 10%;
+left: 20%;
+text-align: center;
+
+justify-content: center;
+align-items: center;
+float: center;
+
+}
+carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+ 

@@ -1,0 +1,35 @@
+<app-menu></app-menu>
+
+<div class="container">
+    <table class="responsive-table">
+        <thead>
+            <tr>
+                <th> Friends </th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let friend of listOfFriends">
+            <td class="waves-effect waves-orange collection-item " (click)="inputValueToFriendSelected(friend)"> {{friend.firstName}} {{friend.lastName}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>    
+
+<div class="container">
+    <div class="card-panel">
+        <div class="input-field col s12">
+            <input disabled value=" {{friendName}} " id="disabled" type="text" class="validate">
+            <label for="disabled">Friend selected :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="amount" type="text" [(ngModel)]="amount">
+            <label >Amount :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="description" type="text" [(ngModel)]="description">
+            <label >Reason :</label>
+          </div>
+        <button class="btn waves-effect waves-orange" (click)="send()"> Send !</button>
+    </div>
+
+</div>

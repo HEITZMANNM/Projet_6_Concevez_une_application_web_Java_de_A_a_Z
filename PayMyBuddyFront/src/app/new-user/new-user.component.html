@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="card-panel">
+        <div class="input-field col s12">
+            <input  id="firstName" type="text" [(ngModel)]="firstName">
+            <label for="disabled">Firstname</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="LastName" type="text" [(ngModel)]="lastName">
+            <label >Lastname :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="email" type="text" [(ngModel)]="email">
+            <label >Email :</label>
+          </div>
+          <div class="input-field col s12">
+            <input  id="password" type="password" [(ngModel)]="password">
+            <label >Password :</label>
+          </div>
+        <button class="btn waves-effect waves-orange" (click)="addNewUser()"> Log me !</button>
+    </div>
+
+</div>
+<button class="btn waves-effect waves-orange" routerLink="/login"> Back </button>

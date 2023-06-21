@@ -1,0 +1,36 @@
+
+
+<div class="row">
+    <div class="s12 m4 l8">
+        <div class="card" class="z-depth-3">
+            <div class="divider"></div>
+                <div class="section" class="center-align" >
+                    <div class="input-field col s6">
+                        <input  class="validate" type="text" id="mail" style="width: 200px;" [(ngModel)]="form.mail">
+                        <label for="mail">Email</label>
+                     </div>
+                    <div class="divider"></div>
+                    <div class="section" class="center-align" ></div>
+                    <div class="input-field col s6">
+                        <input class="validate" type="password" required  id="password" style="width: 200px;"  [(ngModel)]="form.password" size="12">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section" class="center-align">
+                    <div>
+                        <button class="btn waves-effect waves-orange" (click)="handleLogin(form.mail, form.password)" >Login</button>
+                    </div>
+                </div>  
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card-panel">
+        <button class="btn waves-effect waves-orange" routerLink="newUser"> New user ?</button>
+    </div>
+</div>
+
+   

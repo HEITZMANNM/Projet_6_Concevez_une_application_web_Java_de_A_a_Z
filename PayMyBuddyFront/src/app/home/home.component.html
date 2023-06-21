@@ -1,0 +1,49 @@
+<app-menu></app-menu>
+<div class="container">
+    <div class="row">
+        <div class="col l4 m4 s4" >
+         <a href="transaction">
+            <div class="card horizontal" homeBorderCard>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p class="black-text flow-text">
+                            <i class="medium material-icons ">send</i> Transfer
+                        </p>
+                    </div>
+                </div>
+            </div>
+         </a>
+        </div>
+        <div class="col l4 m4 s4" >
+         <a href="profile">
+            <div class="card horizontal" homeBorderCard>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p class="black-text flow-text">
+                            <i class="medium material-icons ">person</i>Profile
+                        </p>
+                    </div>
+                </div>
+            </div>
+         </a>
+        </div>
+        <div class="col l4 m4 s4" >
+         <a href="contact">
+            <div class="card horizontal" homeBorderCard>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p class="black-text flow-text">
+                            <i class="medium material-icons ">groupe</i>Contact
+                        </p>
+                    </div>
+                </div>
+            </div>
+         </a>
+        </div>
+    </div>
+    <div class="card-panel teal lighten-2" *ngIf="user" >
+        <span class="white-text text-darken-2">Happy to see you again, {{user.firstName}} !</span>
+    </div>
+    
+
+</div>

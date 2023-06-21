@@ -1,0 +1,63 @@
+<app-menu></app-menu>
+<div class="container">
+  <table class="responsive-table">
+        <tbody>
+          <tr>
+            <td>First Name</td>
+            <td>{{user.firstName}}</td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td>{{user.lastName}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td> {{user.email}} </td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td type="password">  **** </td>
+            <td>
+              <input id="new password" type="text" class="validate" maxlength="27" [(ngModel)]="newPassword" size="1" >
+              <label for="new password"> New password ? </label>
+          </td>
+            <td class="btn-small waves-effect waves-orange" (click)="modify()" >Modify </td>
+          </tr>
+          <tr>
+            <td>Iban</td>
+            <td class="waves-effect waves-orange collection-item " *ngFor="let bankAccount of bankAccountList" (click)="inputValueToIbanSelected(bankAccount.iban)">  {{bankAccount.iban}} </td>
+          </tr>
+          <tr>
+            <td>BIC</td>
+            <td *ngFor="let bankAccount of bankAccountList" >  {{bankAccount.bic}} </td>
+          </tr>
+          <tr>
+            <td>Balance</td>
+            <td>  {{user.balance}} €</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+      <div class="container" >
+        <div class="input-field col s12">
+          <input disabled value=" {{ibanSelected}} " id="disabled" type="text" class="validate">
+          <label for="disabled">Iban selected :</label>
+        </div>
+        <div class="btn-small waves-effect waves-orange" (click)="deleteIban()">Delete</div>
+
+        <div class="input-field col s6">
+          <input id="new iban" type="text" class="validate"  minlength="27" maxlength="27" [(ngModel)]="newIban">
+          <label for="new iban"> New Iban </label>
+        </div>
+        <div class="input-field col s6">
+          <input id="new bic" type="text" class="validate"  minlength="2" maxlength="2" [(ngModel)]="newBic">
+          <label for="new bic"> New Bic </label>
+        </div>
+
+        <div class="btn-small waves-effect waves-orange" (click)="addIban()">Add </div>
+      </div>
+</div>      
+
+    
